@@ -48,9 +48,9 @@ Gamma = J(1,1)*J(3,3)-(J(1,3))^2;
 dxdt = [R*V-Q*W-g*sin(theta)+F_x/m;...
         -R*U+P*W+g*sin(phi)*cos(theta)+F_y/m;...
         Q*U-P*V+g*cos(phi)*sin(theta)+F_z/m;...
-        (J(1,3)*(J(1,1)-J(2,2)+J(3,3))*P*Q-(J(3,3)*(J(3,3)-J(2,2))+J(1,3)^2)*Q*R+J(3,3)*l+J(1,3)*n)/Gamma;
-        ((J(3,3)-J(1,1))*P*R-J(1,3)*(P^2-R^2)+m)/J(2,2);
-        (((J(1,1)-J(2,2))*J(1,1)+J(1,3)^2)*P*Q-J(1,3)*(J(1,1)-J(2,2)+J(3,3))*Q*R+J(1,3)*l+J(1,1)*n)/Gamma;
+        (J(1,3)*(J(1,1)-J(2,2)+J(3,3))*P*Q-(J(3,3)*(J(3,3)-J(2,2))+J(1,3)^2)*Q*R+J(3,3)*L+J(1,3)*N)/Gamma;
+        ((J(3,3)-J(1,1))*P*R-J(1,3)*(P^2-R^2)+M)/J(2,2);
+        (((J(1,1)-J(2,2))*J(1,1)+J(1,3)^2)*P*Q-J(1,3)*(J(1,1)-J(2,2)+J(3,3))*Q*R+J(1,3)*L+J(1,1)*N)/Gamma;
         P+tan(theta)*(Q*sin(phi)+R*cos(phi));
         Q*cos(phi)-R*sin(phi);
         (Q*sin(phi)+R*cos(phi))/cos(theta)];

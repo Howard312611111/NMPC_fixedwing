@@ -14,7 +14,7 @@ nlobj.Model.IsContinuousTime = false;
 
 nlobj.Model.NumberOfParameters = 1;
 
-nlobj.Model.OutputFcn = @(x,u,Ts) [x(1); x(3)];
+nlobj.Model.OutputFcn = @(x,u,Ts)[x(1);x(2);x(3);x(4);x(5);x(6);x(7);x(8);x(9)] ;
 
 x0 = [250;0;0;5;5;0;0;0;0];
 u0 = [0;0;0;0];
