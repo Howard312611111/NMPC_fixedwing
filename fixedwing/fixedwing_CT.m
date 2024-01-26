@@ -37,11 +37,11 @@ delta_a = u(2);
 delta_e = u(3);
 delta_r = u(4);
 %% force and moment caculation
-F_x = 1; %force along body frame x axe, f(ahpa,q_hat,delta_e,delta_t)
+F_x = 1; %force along body frame x axe, f(alhpa,q_hat,delta_e,delta_t)
 F_y = 1; %force along body frame y axe, f(beta,p_hat,r_hat)
-F_z = 1; %force along body frame z axe, f(ahpa,q_hat,delta_e,delta_t)
+F_z = 1; %force along body frame z axe, f(alhpa,q_hat,delta_e,delta_t)
 L = 1;   %roll moment, f(beta,p_hat,r_hat,delta_a)
-M = 1;   %pitch moment, f(apha,q_hat,delta_e)
+M = 1;   %pitch moment, f(alpha,q_hat,delta_e)
 N = 1;   %yaw moment, f(beta,p_hat,r_hat,delta_a)
 Gamma = J(1,1)*J(3,3)-(J(1,3))^2;
 %% Compute dxdt
