@@ -16,13 +16,17 @@ function dxdt = fixedwing_CT(x, u)
 
 %% parameters
 m = 1;  % plane mass
+rho = 1.225; %air density
+b = 1; %wing span
+c_bar = 1; %mean aerodynamic chord
+S = 1; %wing area
 g = 9.81;   % gravity of earth
 J = [1 0 0; % moment inertia
      0 1 0;
      0 0 1];
 %% Obtain x, u and y
 % x
-U = x(1)
+U = x(1);
 V = x(2);
 W = x(3);
 P = x(4);
@@ -37,12 +41,25 @@ delta_a = u(2);
 delta_e = u(3);
 delta_r = u(4);
 %% force and moment caculation
-F_x = 1; %force along body frame x axe, f(alhpa,q_hat,delta_e,delta_t)
-F_y = 1; %force along body frame y axe, f(beta,p_hat,r_hat)
-F_z = 1; %force along body frame z axe, f(alhpa,q_hat,delta_e,delta_t)
-L = 1;   %roll moment, f(beta,p_hat,r_hat,delta_a)
-M = 1;   %pitch moment, f(alpha,q_hat,delta_e)
-N = 1;   %yaw moment, f(beta,p_hat,r_hat,delta_a)
+V_t = sqrt(U^2+V^2+W^2); %total velocity(assume no wind)
+q_bar = rho*V_t^2/2;
+alpha = atan2(W,U); %attack angle
+beta = asin(V/V_t); %heading angle
+C_L = alpha+beta; %lift coefficient, depend on alpha,beta
+C_D = alpha+beta+delta_r+delta_e; %drag coefficient, depend on alpha,beta,delta_r,delta_e
+C_C = alpha+beta+delta_r+delta_a; %shear coefficient, depend on alpha,beta,delta_r,delta_a
+C_l = beta+delta_a+delta_r; %row coefficient, depend on beta,delta_a,delta_r
+C_m = alpha+delta_e; %pitch coefficient, depend on alpha, delta_e
+C_n = beta+delta_a+delta_r; %yaw coefficient, depend on beta,delta_a,delta_r
+F_D = q_bar*S*C_D; %drag force
+F_L = q_bar*S*C_L; %lift force
+F_C = q_bar*S*C_C; %shear force
+F_x = F_D+delta_t; %force along body frame x axe, f(alhpa,q_bar,delta_e,delta_t)
+F_y = F_C; %force along body frame y axe, f(beta,p_hat,r_hat)
+F_z = F_L+delta_t; %force along body frame z axe, f(alhpa,q_bar,delta_e,delta_t)
+L = q_bar*S*b*C_l;   %rolling moment, f(beta,p_hat,r_hat,delta_a)
+M = q_bar*S*c_bar*C_m;   %pitching moment, f(alpha,q_hat,delta_e)
+N = q_bar*S*b*C_n;   %yawing moment, f(beta,p_hat,r_hat,delta_a)
 Gamma = J(1,1)*J(3,3)-(J(1,3))^2;
 %% Compute dxdt
 dxdt = [R*V-Q*W-g*sin(theta)+F_x/m;...
