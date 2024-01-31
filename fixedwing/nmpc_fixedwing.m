@@ -12,13 +12,21 @@ nlobj.ControlHorizon = 5;     %set controlhorizon
 nlobj.Model.StateFcn = "fixedwing_DT";  %set model in the file
 nlobj.Model.IsContinuousTime = false;
 
-nlobj.Model.NumberOfParameters = 1;
+%nlobj.States.Min = [0 0 0 0 0 0 -180 -180 -180];
+%nlobj.Model.NumberOfParameters = 1;
 
 %nlobj.Model.OutputFcn = @(x,u,Ts)[x(1);x(2);x(3);x(4);x(5);x(6);x(7);x(8);x(9)] ;
 
-x0 = [250;0;0;5;5;0;0;0;0];   %initial state
+x0 = [250;0;0;0;0;0;0;0;0];   %initial state
 u0 = zeros(nu,1);             %initial input
-validateFcns(nlobj, x0, u0, [], {Ts});
+validateFcns(nlobj, x0, u0, []);
 
 x_ref = [400,0,0,5,5,0,0,0,0];
-mv = nlmpcmove(nlobj,x0,u0);
+
+x_now = x0;
+mv = u0;
+for i=1:100
+    mv = nlmpcmove(nlobj,x_now,mv,x_ref);
+    x_now = fixedwing_DT(x_now, mv);
+end
+%dxdt = fixedwing_CT(x_now, u0);

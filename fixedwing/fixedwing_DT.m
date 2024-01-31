@@ -1,4 +1,4 @@
-function xk1 = fixedwing_DT(xk, uk, Ts)
+function xk1 = fixedwing_DT(xk, uk)
 %% Discrete-time nonlinear dynamic model of a pendulum on a cart at time k
 %
 % 9 states (x): 
@@ -18,7 +18,9 @@ function xk1 = fixedwing_DT(xk, uk, Ts)
 %#codegen
 
 % Repeat application of Euler method sampled at Ts/M.
+Ts = 0.1;
 M = 10;
+%Ts = 0.1;
 delta = Ts/M;
 xk1 = xk;
 for ct=1:M
